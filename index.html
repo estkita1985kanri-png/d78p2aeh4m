@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>駐輪場管理システム QRコード方式 導入提案書（理事共有版）</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "メイリオ", "Meiryo", "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ ProN", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+  color: #1a1a1a;
+  background: #eef1f5;
+  -webkit-text-size-adjust: 100%;
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+/* ===== 表紙 ===== */
+.cover {
+  background: linear-gradient(155deg, #0d2c54 0%, #1a4b8c 100%);
+  color: #fff;
+  padding: 48px 44px 40px;
+}
+.cover-label {
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #a8c8f0;
+  margin-bottom: 18px;
+}
+.cover h1 {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+.cover h2 {
+  font-size: 17px;
+  font-weight: normal;
+  color: #c8dff8;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+.cover-cost {
+  display: inline-block;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  padding: 16px 28px;
+  font-size: 18px;
+  line-height: 1.8;
+}
+.cover-cost strong { font-size: 26px; color: #fff; }
+.cover-meta {
+  margin-top: 26px;
+  font-size: 15px;
+  color: #c0d8f5;
+}
+
+/* ===== 本文 ===== */
+.body { padding: 40px 44px 48px; }
+
+.sec {
+  margin-bottom: 44px;
+}
+.sec-title {
+  font-size: 23px;
+  font-weight: bold;
+  color: #0d2c54;
+  border-bottom: 3px solid #1a4b8c;
+  padding-bottom: 10px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sec-title .n {
+  background: #1a4b8c;
+  color: #fff;
+  font-size: 17px;
+  border-radius: 6px;
+  padding: 3px 12px;
+}
+
+p { font-size: 17px; margin-bottom: 16px; }
+.lead { font-size: 18px; }
+
+/* 課題リスト */
+.issues {
+  list-style: none;
+  margin: 18px 0;
+}
+.issues li {
+  background: #fff7f7;
+  border-left: 6px solid #c0392b;
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+  font-size: 17px;
+  line-height: 1.75;
+}
+.issues li b { color: #a32519; }
+
+/* 解決ハイライト */
+.solve {
+  background: #eaf4ff;
+  border: 2px solid #1a4b8c;
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin: 20px 0;
+  font-size: 18px;
+  line-height: 1.85;
+}
+.solve b { color: #0d2c54; }
+
+/* フロー（縦並び・大きめ） */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 22px 0;
+}
+.flow .box {
+  background: #1a4b8c;
+  color: #fff;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 15px;
+  text-align: center;
+  line-height: 1.5;
+  min-width: 120px;
+}
+.flow .box.light { background: #dbe8f7; color: #0d2c54; }
+.flow .arrow { font-size: 24px; color: #1a4b8c; font-weight: bold; }
+
+/* メリット */
+.merits {
+  list-style: none;
+  margin: 14px 0;
+}
+.merits li {
+  padding: 14px 18px 14px 52px;
+  position: relative;
+  border-bottom: 1px solid #e6ebf2;
+  font-size: 17px;
+  line-height: 1.7;
+}
+.merits li:last-child { border-bottom: none; }
+.merits li::before {
+  content: '✓';
+  position: absolute;
+  left: 16px;
+  top: 13px;
+  color: #1a8c4b;
+  font-weight: bold;
+  font-size: 22px;
+}
+.merits li b { color: #0d2c54; }
+.merits li .sub { display: block; font-size: 15px; color: #555; margin-top: 2px; }
+
+/* 留意点 */
+.caution {
+  background: #fffbea;
+  border-left: 6px solid #e6ac00;
+  border-radius: 4px;
+  padding: 16px 22px;
+  margin: 18px 0;
+  font-size: 16px;
+  line-height: 1.8;
+}
+.caution b { color: #7a5c00; }
+.caution ul { margin: 6px 0 0 20px; }
+.caution li { margin-bottom: 6px; }
+
+/* 費用テーブル */
+table.cost {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  margin: 16px 0;
+}
+table.cost th {
+  background: #1a4b8c;
+  color: #fff;
+  padding: 12px 14px;
+  text-align: left;
+}
+table.cost td {
+  border: 1px solid #d4deeb;
+  padding: 12px 14px;
+  line-height: 1.6;
+}
+table.cost tr:nth-child(even) td { background: #f6f9fd; }
+table.cost .zero { color: #1a8c4b; font-weight: bold; font-size: 17px; }
+table.cost .total td {
+  background: #e8f0fb !important;
+  font-weight: bold;
+  color: #0d2c54;
+  border-top: 3px solid #1a4b8c;
+}
+
+.compare-note {
+  background: #f3f6fa;
+  border-radius: 8px;
+  padding: 18px 22px;
+  font-size: 16px;
+  line-height: 1.85;
+  margin: 16px 0;
+}
+.compare-note b { color: #0d2c54; }
+
+/* 進め方ステップ */
+.steps { list-style: none; margin: 14px 0; }
+.steps li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-bottom: 1px solid #e6ebf2;
+  font-size: 17px;
+  line-height: 1.7;
+}
+.steps li:last-child { border-bottom: none; }
+.steps .when {
+  background: #1a4b8c;
+  color: #fff;
+  border-radius: 20px;
+  padding: 5px 16px;
+  font-size: 15px;
+  font-weight: bold;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 96px;
+  text-align: center;
+}
+.steps .when.go { background: #1a6e3f; }
+
+/* FAQ */
+.faq { margin: 14px 0; }
+.faq dt {
+  font-weight: bold;
+  color: #0d2c54;
+  font-size: 17px;
+  margin-top: 18px;
+  padding-left: 30px;
+  position: relative;
+  line-height: 1.6;
+}
+.faq dt::before {
+  content: 'Q';
+  position: absolute; left: 0; top: 0;
+  background: #1a4b8c; color: #fff;
+  width: 24px; height: 24px; border-radius: 5px;
+  font-size: 15px; text-align: center; line-height: 24px;
+}
+.faq dd {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.8;
+  padding-left: 30px;
+  margin-top: 6px;
+  position: relative;
+}
+.faq dd::before {
+  content: 'A';
+  position: absolute; left: 0; top: 0;
+  background: #1a8c4b; color: #fff;
+  width: 24px; height: 24px; border-radius: 5px;
+  font-size: 15px; text-align: center; line-height: 24px;
+}
+.faq dd b { color: #0d2c54; }
+
+/* まとめ */
+.summary {
+  background: linear-gradient(135deg, #eef3fa, #f7f9ff);
+  border: 2px solid #1a4b8c;
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin: 18px 0;
+}
+.summary h3 { font-size: 19px; color: #0d2c54; margin-bottom: 14px; }
+.summary ul { list-style: none; }
+.summary li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  font-size: 17px;
+  line-height: 1.7;
+  border-bottom: 1px dashed #c5d5e8;
+}
+.summary li:last-child { border-bottom: none; }
+.summary li::before {
+  content: '▶';
+  position: absolute; left: 0; top: 11px;
+  color: #1a4b8c; font-size: 12px;
+}
+.summary li b { color: #0d2c54; }
+
+/* フッター */
+.foot {
+  background: #0d2c54;
+  color: #a8c8f0;
+  padding: 18px 44px;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .cover { padding: 36px 24px 30px; }
+  .cover h1 { font-size: 25px; }
+  .body { padding: 30px 24px 36px; }
+  .sec-title { font-size: 21px; }
+  .flow .box { min-width: 44%; }
+}
+
+@media print {
+  body { background: #fff; }
+  .cover, .foot, table.cost th, .steps .when, .faq dt::before, .faq dd::before {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 表紙 -->
+  <div class="cover">
+    <div class="cover-label">理事会 共有資料　／　2026年6月</div>
+    <h1>駐輪場の管理を<br>QRコードで「見える化」する提案</h1>
+    <h2>Google フォームを使った、お金のかからない自転車台帳づくり</h2>
+    <div class="cover-cost">
+      導入費用 <strong>110 円</strong>　／　毎年の費用 <strong>0 円</strong>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- 1 -->
+    <div class="sec">
+      <div class="sec-title"><span class="n">1</span>いま困っていること</div>
+      <p class="lead">5月末で管理会社（日本ハウズイング）との契約が終了し、駐輪場も組合で管理することになりました。ところが——</p>
+      <ul class="issues">
+        <li><b>誰の自転車か分からない。</b>現在の管理シールは約10年前からデザインが変わっていません。そのため、シールが貼ってあっても今の居住者のものとは限らず、中にはサドルがホコリを被ったままの自転車もあります。</li>
+        <li><b>シールと目視だけのアナログ管理。</b>確認するだけで手間がかかり、理事に負担が集中します。</li>
+        <li><b>外部からの放置自転車を防げない。</b>登録の仕組みが無いため、誰のものでもない自転車が増えても気づけません。</li>
+      </ul>
+      <p>自主管理に切り替わるこの機会に、<b>お金をかけずに台帳を整える仕組み</b>を作りたい、というのが今回の提案です。</p>
+    </div>
+
+    <!-- 2 -->
+    <div class="sec">
+      <div class="sec-title"><span class="n">2</span>提案する仕組み</div>
+      <div class="solve">
+        掲示板に<b>QRコードを掲載したラミネート済みのA4掲示物を1枚貼る</b>だけ。居住者はスマホで読み取り、<b>自分で自転車を登録</b>します。回答は自動で一覧表（Google スプレッドシート）にたまり、台帳ができあがります。<b>すでに鍵の貸し借り記録で同じ仕組みを導入済み</b>で、それと同じやり方です。
+      </div>
+      <div class="flow">
+        <div class="box">📱<br>スマホで<br>QRを読む</div>
+        <div class="arrow">→</div>
+        <div class="box light">📝<br>かんたん入力<br>（1〜2分）</div>
+        <div class="arrow">→</div>
+        <div class="box">📊<br>台帳に<br>自動で記録</div>
+        <div class="arrow">→</div>
+        <div class="box light">✏️<br>理事が<br>状態を確認</div>
+      </div>
+      <p style="font-size:16px; color:#555;">※ アプリのダウンロードやログイン、パスワード管理は<b>一切不要</b>です。QRを読むかリンクを押すだけで入力画面が開くので、スマートフォンの操作に不慣れな方でも負担なく使えます。スマホをお持ちでない方は、理事が代わりに登録します。</p>
+
+      <p style="font-weight:bold; color:#0d2c54; font-size:18px; margin:22px 0 8px;">登録する項目（自転車1台につき1回・かんたん）</p>
+      <table class="cost">
+        <tr><th style="width:42%;">項目</th><th style="width:14%;">必須</th><th>内容</th></tr>
+        <tr><td>姓（苗字のみ）</td><td>必須</td><td>フルネームは不要。同姓は部屋番号で区別します。</td></tr>
+        <tr><td>部屋番号</td><td>必須</td><td>一覧から選ぶだけ（入力ミス防止）。</td></tr>
+        <tr><td>自転車の種類・色</td><td>必須</td><td>現地での特定に使います（例：電動アシスト／シルバー）。</td></tr>
+        <tr><td>防犯登録番号</td><td>任意</td><td>放置自転車の照合に有用。「不明」でも可。</td></tr>
+        <tr><td>写真</td><td>任意</td><td>フォームには付けず、LINE／メールで理事へ別送（または理事が現地で撮影）。</td></tr>
+      </table>
+      <p style="font-size:16px; color:#555;">※ <b>2台以上ある世帯は、同じ部屋番号でもう一度送信</b>してください。台数は「同じ部屋番号の登録件数」で自動的に把握できます。<br>※ 送信すると登録内容の<b>確認メールが自動で届きます</b>。後日、お送りいただいた写真を添えた「登録内容のご確認」もお送りします（メール欄に入力された場合）。</p>
+    </div>
+
+    <!-- 3 -->
+    <div class="sec">
+      <div class="sec-title"><span class="n">3</span>このやり方の良いところ</div>
+      <ul class="merits">
+        <li><b>費用がかからない</b><span class="sub">Google の無料サービスだけ。月額料金もライセンス料も一切なし。</span></li>
+        <li><b>居住者が自分で登録できる</b><span class="sub">24時間いつでもOK。理事が一軒ずつ聞き取る必要がありません。</span></li>
+        <li><b>防犯登録番号とひも付く</b><span class="sub">放置自転車が出ても所有者をたどれます。警察への照会にも使えます。</span></li>
+        <li><b>「登録あり＝居住者／登録なし＝要確認」が一目で分かる</b><span class="sub">放置・外部者の自転車を自動的に見分けられます。</span></li>
+        <li><b>引き継ぎが楽</b><span class="sub">アカウントを共有するだけ。理事が交代してもそのまま使えます。</span></li>
+      </ul>
+      <div class="caution">
+        <b>気をつける点</b>
+        <ul>
+          <li>スマホをお持ちでない方には、理事による代行入力やご家族へのリンク送付で対応します。</li>
+          <li>最初の全戸へのお知らせ（書面＋LINE）には少し手間がかかります。</li>
+          <li>管理用の Google アカウントは、理事交代時に確実に引き継ぐ必要があります。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4 セキュリティ -->
+    <div class="sec">
+      <div class="sec-title"><span class="n">4</span>個人情報・情報セキュリティ対策</div>
+      <p>個人情報の取り扱いは、組合として最も慎重に扱うべき事項です。本システムの基本方針は<b>「そもそも漏れても困らない情報しか集めない」</b>こと。そのうえで、現行の紙・シール台帳よりも漏えいリスクを低く抑えられる設計です。</p>
+      <ul class="merits">
+        <li><b>そもそも、漏れて困る情報を集めない（最重要）</b><span class="sub">登録は<b>苗字のみ</b>（フルネーム不要）・部屋番号・自転車の特定情報だけ。苗字と部屋番号は、表札や郵便受けで既に見える程度の情報です。万一漏れても個人の特定や悪用にはつながりません。同姓（佐々木・清水など）が複数いても、部屋番号で確実に区別できます。</span></li>
+        <li><b>金銭被害に直結する情報は一切扱わない</b><span class="sub">口座番号・クレジットカード・マイナンバーなどは収集しません。防犯登録番号は放置自転車の照合に有用ですが「不明」入力も可とし、強制しません。</span></li>
+        <li><b>QRを読まれても情報は漏れない</b><span class="sub">QRで開くのは白紙の入力画面だけ。登録済みのデータは一切表示されません。QRは掲示板に貼り、自転車本体には貼りません。</span></li>
+        <li><b>通信・保存とも暗号化</b><span class="sub">Google は銀行や行政機関も利用するインフラで、通信（TLS）も保存データも暗号化されています。理事が自宅で紙台帳を保管するよりも、紛失・盗み見・無断コピーのリスクが低くなります。</span></li>
+        <li><b>アカウント乗っ取りを2段階認証で防止</b><span class="sub">組合アカウントに2段階認証（本人のスマホ確認）を設定。パスワードだけでは入れないため、第三者による乗っ取りを実務上ほぼ排除できます。普段の操作はこれまでどおりで、見知らぬ端末からのログイン時だけ本人確認が入ります。</span></li>
+        <li><b>閲覧できるのは理事の組合アカウントのみ</b><span class="sub">台帳の共有は「特定のユーザーのみ」に固定し、「リンクを知っている全員」は使いません。外部に台帳URLが流れても中身は見られません。取得目的は駐輪場管理のみで、第三者への提供・販売は行いません。退去時は登録を削除し、年1回棚卸しします。</span></li>
+      </ul>
+      <div class="caution">
+        <b>結論</b>
+        <ul>
+          <li>「Google に預けて大丈夫か」への最良の答えは、<b>そもそも漏れて困る情報を預けないこと</b>。苗字＋部屋番号＋自転車情報だけなら、万一漏れても実害はほぼありません。<b>台帳にはマンション名（物件を特定する情報）も残しません</b>ので、仮にデータだけが流出しても、どこの誰の情報か結びつけることはできません。</li>
+          <li>そのうえで2段階認証・共有範囲の限定を行えば、<b>理事が自宅で紙台帳を持つよりも安全</b>に管理できます。年1回程度のバックアップ（CSV）も理事のみがアクセスできる場所に保管します。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="sec">
+      <div class="sec-title"><span class="n">5</span>費用</div>
+      <table class="cost">
+        <tr><th style="width:55%;">項目</th><th>金額</th></tr>
+        <tr><td>システム作成（フォーム・台帳一式）</td><td class="zero">0 円</td></tr>
+        <tr><td>QRコードの作成・印刷（理事長が対応）</td><td class="zero">0 円</td></tr>
+        <tr><td>ラミネート代（100円ショップ）</td><td class="price">110 円</td></tr>
+        <tr><td>居住者へのお知らせ（LINE・メール）</td><td class="zero">0 円</td></tr>
+        <tr><td>毎年かかる費用（保守・更新など）</td><td class="zero">0 円 / 年</td></tr>
+        <tr class="total"><td>合計</td><td class="price">110 円</td></tr>
+      </table>
+      <div class="compare-note">
+        参考までに、<b>有料の駐輪管理アプリ</b>を業者に頼むと初期数万〜十数万円＋<b>毎年6万円ほど</b>かかります。<b>シール方式（現行）</b>は誰のものか分からなくなりやすく、台帳も残りません。19戸の当マンションには、今回のQR方式がいちばん身の丈に合っています。
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="sec">
+      <div class="sec-title"><span class="n">6</span>進め方</div>
+      <ul class="steps">
+        <li><span class="when">今すぐ</span>理事のみなさんに協議・ご承認いただく。承認後すぐにシステムとQRコードを準備。</li>
+        <li><span class="when go">6月　開始</span>QRコードを印刷して掲示板に掲示。（YouTube等で操作マニュアル動画を配布することも検討。）</li>
+        <li><span class="when">6〜7月</span>LINE・メールで全戸に登録のお願いを送付（登録期限の目安：7月末）。スマホ非所持の方は理事が代行。</li>
+        <li><span class="when">8月〜</span>登録内容を台帳に整理。未登録の自転車を「要確認リスト」に記録して個別フォロー。</li>
+        <li><span class="when">秋以降</span>一定期間たっても登録のない自転車は、全戸通知のうえ回収業者を手配。</li>
+      </ul>
+    </div>
+
+    <!-- 6 -->
+    <div class="sec">
+      <div class="sec-title"><span class="n">7</span>よくある質問</div>
+      <dl class="faq">
+        <dt>QRを外部の人に読み取られて、個人情報が漏れませんか？</dt>
+        <dd><b>漏れません。</b>QRで開くのは「入力画面」だけです。登録済みのデータは表示されません。QRは建物内の掲示板に貼り、自転車本体には貼りません。</dd>
+
+        <dt>スマホを持っていない人はどうすれば？</dt>
+        <dd>理事が電話や対面で聞き取って代わりに登録します。ご家族がいる場合は、リンクをご家族に送って入力いただくこともできます。</dd>
+
+        <dt>今貼ってある管理シールはどうすればよいですか？</dt>
+        <dd><b>破棄いただいて問題ありません。</b>今後はQRコードによる登録で台帳を管理するため、シールでの管理は必要なくなります。</dd>
+
+        <dt>本当にずっと無料ですか？</dt>
+        <dd>Google フォーム・スプレッドシートは、現時点で<b>有料化の予定はありません</b>。回答件数・保存容量に制限もありません。</dd>
+
+        <dt>登録のない自転車は、すぐ処分されるのですか？</dt>
+        <dd>いいえ。写真つきでLINE通知し、スマホ非所持の方には書面でも個別確認します。<b>所有者が確認できない場合に限り</b>、回収業者を手配します。確認なしに廃棄することはありません。</dd>
+      </dl>
+    </div>
+
+    <!-- まとめ -->
+    <div class="sec" style="margin-bottom:0;">
+      <div class="sec-title"><span class="n">8</span>まとめ</div>
+      <div class="summary">
+        <h3>ご承認いただきたいポイント</h3>
+        <ul>
+          <li><b>費用ゼロ</b>で、自主管理に必要な台帳がすぐ作れます。</li>
+          <li>管理会社契約が終了した<b>今、始めるのが最適</b>です。</li>
+          <li><b>「登録あり＝居住者／なし＝要確認」</b>という明確な基準で、放置自転車問題を根本から解決できます。</li>
+          <li>外部業者に頼らないので、<b>理事交代後の引き継ぎも簡単</b>です。</li>
+        </ul>
+      </div>
+      <p style="text-align:right; color:#555; font-size:16px; margin-top:18px;">ご不明な点は、お気軽にお声がけください。</p>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    エスト北塚口管理組合　理事会<br>
+    駐輪場管理システム QRコード方式 導入提案書（理事共有版）　／　2026年6月4日
+  </div>
+
+</div>
+</body>
+</html>
