@@ -2,11 +2,16 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>駐輪場管理システム QRコード方式 導入提案書（理事共有版）</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* in-appブラウザでの横はみ出し（＝全体縮小）防止 */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, table { max-width: 100%; }
+table { table-layout: fixed; word-break: break-word; }
 
 body {
   font-family: "メイリオ", "Meiryo", "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ ProN", sans-serif;
@@ -314,7 +319,7 @@ table.cost .total td {
   line-height: 1.7;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   body { font-size: 16px; }
   .cover { padding: 36px 24px 30px; }
   .cover h1 { font-size: 25px; }
